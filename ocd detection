@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OCD Quick Screen — Basic</title>
+  <style>
+    :root{
+      --bg:#f7f9fc; --card:#fff; --accent:#4f46e5; --muted:#6b7280;
+      --success:#10b981; --warning:#f59e0b;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,var(--bg),#eef2ff); display:flex; align-items:center; justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width:100%; max-width:720px; background:var(--card); border-radius:12px; box-shadow:0 6px 24px rgba(15,23,42,0.08);
+      padding:20px;
+    }
+    h1{margin:0 0 6px; font-size:20px}
+    p.lead{margin:0 0 16px; color:var(--muted); font-size:14px}
+    form{display:flex; flex-direction:column; gap:12px}
+    .question{background:#fbfdff; border:1px solid #eef2ff; padding:12px; border-radius:8px}
+    .q-title{font-weight:600; margin-bottom:6px}
+    .scale{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    label.scale-btn{
+      user-select:none; cursor:pointer;
+      border:1px dashed #e6eefc; padding:6px 10px; border-radius:8px; font-size:13px;
+    }
+    input[type="radio"]{display:none}
+    input[type="radio"]:checked + .scale-btn{background:var(--accent); color:#fff; border-style:solid}
+    .actions{display:flex; gap:8px; margin-top:8px}
+    button{border:0; padding:10px 14px; border-radius:8px; cursor:pointer}
+    .btn-primary{background:var(--accent); color:#fff}
+    .btn-ghost{background:transparent; border:1px solid #e6eefc}
+    .result{margin-top:12px; padding:12px; border-radius:8px}
+    .small{font-size:13px; color:var(--muted)}
+    footer{margin-top:14px; font-size:12px; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <h1>OCD Quick Screen — Basic (Demo)</h1>
+    <p class="lead">A very simple, non-clinical screening: answer how much each problem has bothered you in the past 2 weeks.</p>
+
+    <form id="screenForm" novalidate>
+      <!-- 5 short example questions. These are generic behaviour/check style questions only. -->
+      <div class="question" data-q="1">
+        <div class="q-title">1) Do you have unwanted repetitive thoughts that you can't easily ignore?</div>
+        <div class="scale" role="radiogroup" aria-labelledby="">
+          <!-- scale 0-4 -->
+          <label><input type="radio" name="q1" value="0"><span class="scale-btn">0 — Not at all</span></label>
+          <label><input type="radio" name="q1" value="1"><span class="scale-btn">1 — A little</span></label>
+          <label><input type="radio" name="q1" value="2"><span class="scale-btn">2 — Moderately</span></label>
+          <label><input type="radio" name="q1" value="3"><span class="scale-btn">3 — Quite a bit</span></label>
+          <label><input type="radio" name="q1" value="4"><span class="scale-btn">4 — Extremely</span></label>
+        </div>
+      </div>
+
+      <div class="question" data-q="2">
+        <div class="q-title">2) Do you repeat behaviours (checking, washing, counting, arranging) to reduce anxiety?</div>
+        <div class="scale">
+          <label><input type="radio" name="q2" value="0"><span class="scale-btn">0 — Not at all</span></label>
+          <label><input type="radio" name="q2" value="1"><span class="scale-btn">1 — A little</span></label>
+          <label><input type="radio" name="q2" value="2"><span class="scale-btn">2 — Moderately</span></label>
+          <label><input type="radio" name="q2" value="3"><span class="scale-btn">3 — Quite a bit</span></label>
+          <label><input type="radio" name="q2" value="4"><span class="scale-btn">4 — Extremely</span></label>
+        </div>
+      </div>
+
+      <div class="question" data-q="3">
+        <div class="q-title">3) How much time per day do these thoughts/behaviours take up?</div>
+        <div class="scale">
+          <label><input type="radio" name="q3" value="0"><span class="scale-btn">0 — None</span></label>
+          <label><input type="radio" name="q3" value="1"><span class="scale-btn">1 — < 1 hour</span></label>
+          <label><input type="radio" name="q3" value="2"><span class="scale-btn">2 — 1–3 hours</span></label>
+          <label><input type="radio" name="q3" value="3"><span class="scale-btn">3 — 3–6 hours</span></label>
+          <label><input type="radio" name="q3" value="4"><span class="scale-btn">4 — >6 hours</span></label>
+        </div>
+      </div>
+
+      <div class="question" data-q="4">
+        <div class="q-title">4) Do these thoughts or behaviours interfere with work, studies, or social life?</div>
+        <div class="scale">
+          <label><input type="radio" name="q4" value="0"><span class="scale-btn">0 — Not at all</span></label>
+          <label><input type="radio" name="q4" value="1"><span class="scale-btn">1 — Slightly</span></label>
+          <label><input type="radio" name="q4" value="2"><span class="scale-btn">2 — Moderately</span></label>
+          <label><input type="radio" name="q4" value="3"><span class="scale-btn">3 — Severely</span></label>
+          <label><input type="radio" name="q4" value="4"><span class="scale-btn">4 — Very severely</span></label>
+        </div>
+      </div>
+
+      <div class="question" data-q="5">
+        <div class="q-title">5) How much distress do these cause you?</div>
+        <div class="scale">
+          <label><input type="radio" name="q5" value="0"><span class="scale-btn">0 — None</span></label>
+          <label><input type="radio" name="q5" value="1"><span class="scale-btn">1 — Mild</span></label>
+          <label><input type="radio" name="q5" value="2"><span class="scale-btn">2 — Moderate</span></label>
+          <label><input type="radio" name="q5" value="3"><span class="scale-btn">3 — Severe</span></label>
+          <label><input type="radio" name="q5" value="4"><span class="scale-btn">4 — Extreme</span></label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-primary" id="submitBtn">Get Result</button>
+        <button type="button" class="btn-ghost" id="resetBtn">Reset</button>
+      </div>
+
+      <div id="resultArea" class="result" aria-live="polite" hidden></div>
+
+    </form>
+
+    <footer>
+      <div class="small">
+        ⚠️ <strong>Disclaimer:</strong> This is a basic educational screener only. It is NOT a clinical diagnosis. If you (or someone you care for) are experiencing distressing symptoms, please consult a qualified mental health professional.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Very simple scoring: sum 5 items (0-4) => total 0-20
+    // Provide a basic interpretation:
+    // 0-4 : Unlikely / Minimal
+    // 5-9 : Mild — keep an eye
+    // 10-14 : Moderate — consider professional advice
+    // 15-20 : High — seek professional support
+    (function(){
+      const form = document.getElementById('screenForm');
+      const submit = document.getElementById('submitBtn');
+      const reset = document.getElementById('resetBtn');
+      const resultArea = document.getElementById('resultArea');
+
+      function getScore(){
+        let total = 0;
+        for(let i=1;i<=5;i++){
+          const vals = form['q'+i];
+          if(!vals) return null;
+          let found=false;
+          if (vals.length === undefined) {
+            // single input
+            const v = vals.value;
+            if(v === '') return null;
+            total += Number(v);
+            found=true;
+          } else {
+            for(const opt of vals){
+              if(opt.checked){
+                total += Number(opt.value);
+                found=true;
+                break;
+              }
+            }
+          }
+          if(!found) return null;
+        }
+        return total;
+      }
+
+      function interpret(score){
+        if(score <= 4) return {text: 'Minimal or no signs (score '+score+').', level:'low'};
+        if(score <= 9) return {text: 'Mild — some symptoms present (score '+score+'). Consider self-help strategies and monitoring.', level:'mild'};
+        if(score <= 14) return {text: 'Moderate — symptoms are more prominent (score '+score+'). Consider reaching out to a mental health professional for assessment.', level:'moderate'};
+        return {text: 'High — significant symptoms (score '+score+'). Strongly consider seeking professional help soon.', level:'high'};
+      }
+
+      submit.addEventListener('click', ()=>{
+        const score = getScore();
+        if(score === null){
+          resultArea.hidden = false;
+          resultArea.style.border = '1px solid #fde68a';
+          resultArea.innerHTML = '<strong>Please answer all 5 questions.</strong>';
+          return;
+        }
+        const info = interpret(score);
+        resultArea.hidden = false;
+        // style based on level
+        if(info.level === 'low'){
+          resultArea.style.border = '1px solid #bbf7d0';
+          resultArea.innerHTML = '<strong style="color:var(--success)">Result:</strong> ' + info.text +
+            '<div class="small" style="margin-top:8px">If you want, track symptoms over several weeks and show to a clinician if they change.</div>';
+        } else if(info.level === 'mild' || info.level === 'moderate'){
+          resultArea.style.border = '1px solid #fce7a9';
+          resultArea.innerHTML = '<strong style="color:var(--warning)">Result:</strong> ' + info.text +
+            '<div class="small" style="margin-top:8px">Self-help (structured routines, limiting reassurance-seeking, breathing/relaxation) can help. Consider consultation if symptoms persist or impair life.</div>';
+        } else {
+          resultArea.style.border = '1px solid rgba(239,68,68,0.15)';
+          resultArea.innerHTML = '<strong style="color:rgb(239,68,68)">Result:</strong> ' + info.text +
+            '<div class="small" style="margin-top:8px">If you are in crisis or feel unable to cope, contact emergency services or a mental health professional immediately.</div>';
+        }
+      });
+
+      reset.addEventListener('click', ()=>{
+        form.reset();
+        resultArea.hidden = true;
+      });
+
+      // small enhancement: highlight selected labels visually (works by CSS adjacent selector)
+      // no further JS needed.
+    })();
+  </script>
+</body>
+</html>
